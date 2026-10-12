@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>mock-api — instant mock REST APIs</title>
+    <meta
+      name="description"
+      content="Describe a resource with a small JSON Schema and get a working mock REST API in seconds."
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="bar">
+      <span class="brand">mock-api</span>
+      <span class="tag">instant mock REST APIs from a JSON schema</span>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <h1>Describe a resource. Get a working REST API.</h1>
+        <p>
+          Paste a small JSON Schema below, pick a collection name, and you'll get a real CRUD
+          endpoint
+          (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>PATCH</code>/<code>DELETE</code>)
+          backed by its own storage &mdash; no backend to write, no account required for the free
+          tier.
+        </p>
+      </section>
+
+      <section class="builder" aria-labelledby="builder-h">
+        <h2 id="builder-h">Create a project</h2>
+        <form id="create-form">
+          <label for="pname">Project name (optional)</label>
+          <input id="pname" name="pname" type="text" maxlength="80" placeholder="my-app" />
+
+          <label for="cname">First collection name</label>
+          <input id="cname" name="cname" type="text" maxlength="60" required placeholder="todos" />
+
+          <label for="schema">JSON Schema for one record</label>
+          <textarea id="schema" name="schema" rows="10" spellcheck="false">
+{
+  "type": "object",
+  "properties": {
+    "title": { "type": "string", "maxLength": 140 },
+    "done": { "type": "boolean" },
+    "priority": { "type": "integer", "minimum": 1, "maximum": 5 }
+  },
+  "required": ["title"]
+}</textarea>
+
+          <label for="seed">Seed fake records</label>
+          <input id="seed" name="seed" type="number" min="0" max="50" value="3" />
+
+          <button type="submit" id="create-btn">Create mock API</button>
+        </form>
+        <div id="result" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="docs">
+        <h2>Supported field types</h2>
+        <p>
+          <code>string</code>, <code>number</code>, <code>integer</code>, <code>boolean</code>, and
+          <code>array</code> of a scalar type. Optional per-field <code>enum</code>,
+          <code>format</code>
+          (<code>email</code>/<code>uuid</code>/<code>date</code>/<code>date-time</code>),
+          <code>minLength</code>/<code>maxLength</code>, <code>minimum</code>/<code>maximum</code>,
+          and a length-capped <code>pattern</code>. Unknown fields on write are rejected (no
+          <code>additionalProperties: true</code>).
+        </p>
+        <h2>Limits (free plan)</h2>
+        <ul>
+          <li>3 live projects, 5 collections each, 500 records per collection</li>
+          <li>120 requests/min per project, 20KB request bodies</li>
+          <li>projects expire after 14 days of being created</li>
+        </ul>
+      </section>
+    </main>
+    <script src="/home.js"></script>
+  </body>
+</html>
